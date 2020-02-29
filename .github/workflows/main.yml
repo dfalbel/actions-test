@@ -27,10 +27,10 @@ jobs:
           asset_path: test.txt
           asset_name: test.txt
           asset_content_type: application/zip
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: test
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          CLI: gsutil
         with:
-          service_account_email: ${{ secrets.SA_EMAIL }}
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-      - name: Upload to bucket
-        run: |
-          gsutil cp test.txt gs://lantern-builds/test/test.txt
+          args: cp test.txt gs://lantern-builds/test/test.txt
